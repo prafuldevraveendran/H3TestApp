@@ -1,0 +1,9 @@
+mapbox
+folium
+pandas
+h3
+colormap
+geojson
+requests
+shapely
+boto3
