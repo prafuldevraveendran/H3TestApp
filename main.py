@@ -3,19 +3,11 @@ import folium
 import os
 import webbrowser
 import pandas as pd
-import requests
-from mapbox import Geocoder
 import branca.colormap as cm
-import geojson
 from shapely.geometry import Polygon, MultiPolygon
 from shapely.ops import unary_union
 
-mapboxToken = "pk.eyJ1IjoicHJhZnVsZGV2IiwiYSI6ImNtYmdoMG0yMTFiZXQybHFuejNiNzFsZWwifQ.3wEV9mcJ_U-nyrmwYqu-lw"
-datasetId = "cmbi0p7u40dqe1upgof4b94qc"
-username = 'prafuldev'
-url = f'https://api.mapbox.com/datasets/v1/{username}/{datasetId}/features?access_token={mapboxToken}'
-
-
+mapboxToken = "mapbox api key"
 
 def compute_h3_and_boundaries(row, resolution=8):
     # Extract latitude and longitude from the current row
