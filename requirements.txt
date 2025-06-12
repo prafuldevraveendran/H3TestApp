@@ -6,3 +6,5 @@ colormap
 geojson
 requests
 shapely
+boto3
+alphashape

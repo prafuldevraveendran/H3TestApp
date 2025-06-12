@@ -1,3 +1,17 @@
+# Scripts
+
+## Upload GeoJSON to Mapbox
+
+[upload_geojson_to_mapbox.py](src/upload_geojson_to_mapbox.py)
+
+## Render H3 Tiles, draw outlines, smoothen, and export as Geojson files
+
+[draw_h3cells_and_outline.py](src/draw_h3cells_and_outline.py)
+
+### Output
+[Goto Output folder](output)
+
+
 # 2D Geo Zones
 
 # H3Geo
@@ -42,8 +56,43 @@ A Dataset in Mapbox is an editable collection of GeoJSON features and their prop
 
 ### Tileset
 
-A tileset is a collection of  raster or vector data broken up into a grid of tiles, optimied for rendering and not directly editable. [More info](https://docs.mapbox.com/studio-manual/reference/tilesets/)
+A tileset is a collection of  raster or vector data broken up into a grid of tiles, optimized for rendering and not directly editable. [More info](https://docs.mapbox.com/studio-manual/reference/tilesets/)
 
 ## How to upload GeoJson Data to Mapbox
 
 To host the data in Mapbox, you can periodically upload the GeoJSON to Mapbox using [Uploads API](https://docs.mapbox.com/help/glossary/uploads-api/) or [Mapbox Tiling Service](https://docs.mapbox.com/mapbox-tiling-service/vector/#create-a-new-tileset-that-uses-incremental-updates). However this better for data that updates less frequently(hourly or daily).
+
+### Supported File Formats for Uploads API
+
+The following file types are supported:
+
+* **GeoJSON**
+* **KML**
+* **GPX**
+* **Shapefile** (must be uploaded as a `.zip` file)
+* **CSV**
+* **GeoTIFF**
+* **MBTiles**
+
+More details: [Accepted file types and transfer limits](https://docs.mapbox.com/studio-manual/guides/geospatial-data/#accepting-file-types-and-transfer-limits)
+
+---
+
+### File Types That Support Holes in Polygons
+
+| Format         | Supports Holes                   | Reference Links                                                                                                  |
+| -------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **GeoJSON**    | ✅ Yes (using inner rings)        | [GeoJSON Spec (RFC 7946)](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6)                           |
+| **Shapefiles** | ✅ Yes (with rings/multipolygons) | [ESRI Shapefile Spec](https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf)                               |
+| **MBTiles**    | ✅ Yes (supports vector tiles)    | [Vector Tiles Winding Order](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards/#winding-order) |
+
+Example: [Polygon with a Hole in GeoJSON](https://gist.github.com/andrewharvey/978590af4d5ebb1d0ed122da6ce7ebea#file-polygon-with-a-hole-geojson)
+
+
+### Outlining a Group of H3 Cells
+
+Concave hull algorithms like **k-Nearest Neighbors** or **Ball-Pivoting** can be used to outline H3 cells with flexible boundaries.
+
+### Smoothing Sharp Corners
+
+[Chaikin’s Algorithm](https://observablehq.com/@pamacha/chaikins-algorithm) smooths polygon edges by iteratively cutting corners.
